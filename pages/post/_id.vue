@@ -32,7 +32,7 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </main>
     <footer>
-      <AppCommentForm />
+      <AppCommentForm @created="createCommentHandler" v-if="canAddComment" />
       <div class="comments" v-if="true">
         <AppComment v-for="comment in 4" :key="comment" :comment="comment" />
       </div>
@@ -48,6 +48,16 @@ export default {
   components: { AppComment, AppCommentForm },
   validate({ params }) {
     return !!params.id;
+  },
+  data() {
+    return {
+      canAddComment: true
+    };
+  },
+  methods: {
+    createCommentHandler() {
+      this.canAddComment = false;
+    }
   }
 };
 </script>

@@ -10,7 +10,7 @@
       <el-input type="textarea" v-model.trim="controls.text" resize="none" :rows="2"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" native-type="submit" round>Добавить комментарий</el-button>
+      <el-button type="primary" :loading="loading" native-type="submit" round>Добавить комментарий</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -19,6 +19,7 @@
 export default {
   data() {
     return {
+      loading: false,
       controls: {
         name: "",
         text: ""
@@ -57,7 +58,20 @@ export default {
     onSubmit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          alert("submit!");
+          this.loading = true;
+
+          const formData = {
+            name: this.controls.name,
+            text: this.controls.text,
+            postId: ""
+          };
+
+          try {
+            this.$message.success("Комментарий успешно добавлен");
+            this.$emit("created");
+          } catch (e) {
+            this.loading = false;
+          }
         }
       });
     }
