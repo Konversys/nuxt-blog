@@ -29,12 +29,12 @@ export default {};
   margin-bottom: 0.5rem;
 
   .comment-header__name {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }
 
 .comment-text {
   white-space: pre-line;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 </style>
