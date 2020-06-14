@@ -1,9 +1,24 @@
 <template>
-  <div>
-    <nuxt />
-  </div>
+  <el-container>
+    <el-header>
+      <AppNavigation />
+    </el-header>
+    <el-main>
+      <nuxt />
+    </el-main>
+    <el-footer></el-footer>
+  </el-container>
 </template>
 
-<style>
+<script>
+import AppNavigation from "@/components/main/Navigation";
 
+export default {
+  components: {
+    AppNavigation
+  }
+};
+</script>
+
+<style>
 </style>
