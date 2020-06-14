@@ -67,8 +67,10 @@ export default {
           };
 
           try {
-            this.$message.success("Комментарий успешно добавлен");
-            this.$emit("created");
+            setTimeout(() => {
+              this.$message.success("Комментарий успешно добавлен");
+              this.$emit("created");
+            }, 1000);
           } catch (e) {
             this.loading = false;
           }
