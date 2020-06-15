@@ -2,7 +2,7 @@
   <div class="wrapper">
     <el-container :style="{ height: '100%' }">
       <el-aside width="250px">
-          <AppAside />
+        <AppAside />
       </el-aside>
       <el-main>
         <nuxt />
@@ -12,11 +12,14 @@
 </template>
 
 <script>
-import AppAside from '@/components/admin/Aside'
+import AppAside from "@/components/admin/Aside";
 export default {
-    components: {
-        AppAside
-    }
+  components: {
+    AppAside
+  },
+  head: {
+    title: "Админ панель"
+  }
 };
 </script>
 
