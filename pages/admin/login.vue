@@ -62,9 +62,18 @@ export default {
     };
   },
   mounted() {
-    const {message } = this.$route.query
-    if (message === 'login') {
-      this.$message.info('Для доступа к админ панели авторизуйтесь в системе')
+    const { message } = this.$route.query;
+    switch (message) {
+      case "login":
+        this.$message.info(
+          "Для доступа к админ панели авторизуйтесь в системе"
+        );
+        break;
+      case "logout":
+        this.$message.info("Вы вышли из системы");
+        break;
+      default:
+        break;
     }
   },
   methods: {
