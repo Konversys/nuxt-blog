@@ -1,5 +1,5 @@
 <template>
-  <el-col :xs="24" :sm="18" :md="12" :lg="10">
+  <el-col :xs="24" :sm="18" :md="12" :lg="10" :xl="8">
     <el-card shadow="always">
       <el-form ref="form" :model="controls" :rules="rules" @submit.native.prevent="onSubmit">
         <el-row type="flex" justify="center">
@@ -63,9 +63,23 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$refs.form.validate(valid => {
+      this.$refs.form.validate(async valid => {
         if (valid) {
-          console.log("submit");
+          this.loading = true;
+          try {
+            const formData = {
+              login: this.controls.login,
+              password: this.controls.password
+            };
+
+            await this.$store.dispatch("auth/login", formData);
+            this.$router.push("/admin");
+
+            this.loading = false;
+          } catch (error) {
+            console.log(error);
+            this.loading = false;
+          }
         }
       });
     }
