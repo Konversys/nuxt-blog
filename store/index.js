@@ -11,12 +11,6 @@ export const mutations = {
   }
 };
 
-export const actions = {
-  setError({ commit }, error) {
-    commit("error");
-  }
-};
-
 export const getters = {
   error: state => state.error
 };
