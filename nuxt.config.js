@@ -20,7 +20,7 @@ module.exports = {
       }
     ]
   },
-  loading: { color: "#fff" },
+  loading: { color: "#66B1FF" },
 
   css: ["element-ui/lib/theme-chalk/index.css", "@/theme/index.scss"],
 
