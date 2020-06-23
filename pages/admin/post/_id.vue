@@ -78,8 +78,9 @@ export default {
             this.$message.success("Пост обновлен");
           } catch (error) {
             this.$message.error("Пост не обновлен");
+          } finally {
+            this.loading = false;
           }
-          this.loading = false;
         }
       });
     }

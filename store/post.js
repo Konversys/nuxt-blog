@@ -30,5 +30,13 @@ export const actions = {
       }, 1000);
     });
   },
+  async create({}, { title, text }) {
+    return await new Promise(resolve => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+  },
+  async remove({}, id) {},
   async update({}, { id, text }) {}
 };
