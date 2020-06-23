@@ -65,7 +65,7 @@ export default {
         );
         await this.$store.dispatch("post/remove", id);
 
-        this.posts = this.posts.filter(x => x._id !== id);
+        this.posts = this.posts.filter(x => x._id !== id); // mock
 
         this.$message.success("Пост удален");
       } catch (error) {}

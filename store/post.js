@@ -1,25 +1,34 @@
+const posts = [
+  {
+    title: "post",
+    date: new Date(),
+    views: 22,
+    comments: [1, 2],
+    _id: 1
+  },
+  {
+    title: "post2",
+    date: new Date(),
+    views: 23,
+    comments: [1, 2],
+    _id: 2
+  }
+];
+
 export const actions = {
   async fetchAdmin({}) {
     return await new Promise(resolve => {
       setTimeout(() => {
-        resolve([
-          {
-            title: "post",
-            date: new Date(),
-            views: 22,
-            comments: [1, 2],
-            _id: Math.random()
-          },
-          {
-            title: "post2",
-            date: new Date(),
-            views: 23,
-            comments: [1, 2],
-            _id: Math.random()
-          }
-        ]);
+        resolve(posts);
       }, 1000);
     });
   },
-  async remove({}, id) {}
+  async fetchAdminById({}, id) {
+    return await new Promise(resolve => {
+      setTimeout(() => {
+        resolve(posts.find(x => x._id == id));
+      }, 1000);
+    });
+  },
+  async update({}, { id, text }) {}
 };
