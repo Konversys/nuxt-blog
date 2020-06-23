@@ -6,11 +6,17 @@
         <el-input v-model.trim="controls.title"></el-input>
       </el-form-item>
       <el-form-item label="Текст в формате md или html" prop="login">
-        <el-input v-model.trim="controls.text" type="textarea" resize="none" :rows="10"></el-input>
+        <el-input v-model="controls.text" type="textarea" resize="none" :rows="10"></el-input>
       </el-form-item>
       <el-form-item>
+        <el-button type="success" @click="previewDialog = true">Предпросмотр</el-button>
         <el-button type="primary" native-type="submit" :loading="loading">Создать пост</el-button>
       </el-form-item>
+      <el-dialog title="Предпросмотр" :visible.sync="previewDialog">
+        <div :key="controls.text">
+          <vue-markdown>{{controls.text}}</vue-markdown>
+        </div>
+      </el-dialog>
     </el-form>
   </div>
 </template>
@@ -19,6 +25,7 @@
 export default {
   layout: "admin",
   middleware: ["admin-auth"],
+
   head() {
     return {
       title: "Создание поста"
@@ -26,6 +33,7 @@ export default {
   },
   data() {
     return {
+      previewDialog: false,
       loading: false,
       controls: {
         text: "",
