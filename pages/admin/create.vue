@@ -12,6 +12,21 @@
         <el-button type="success" @click="previewDialog = true">Предпросмотр</el-button>
         <el-button type="primary" native-type="submit" :loading="loading">Создать пост</el-button>
       </el-form-item>
+      <el-upload
+        class="mb"
+        drag
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :auto-upload="false"
+        :on-change="handleImageChange"
+        ref="upload"
+      >
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">
+          Перенесите файл
+          <em>или нажмите сюда</em>
+        </div>
+        <div class="el-upload__tip" slot="tip">jpg/png файлы размером меньше 500kb</div>
+      </el-upload>
       <el-dialog title="Предпросмотр" :visible.sync="previewDialog">
         <div :key="controls.text">
           <vue-markdown>{{controls.text}}</vue-markdown>
@@ -25,7 +40,6 @@
 export default {
   layout: "admin",
   middleware: ["admin-auth"],
-
   head() {
     return {
       title: "Создание поста"
@@ -33,6 +47,7 @@ export default {
   },
   data() {
     return {
+      image: null,
       previewDialog: false,
       loading: false,
       controls: {
@@ -58,24 +73,33 @@ export default {
     };
   },
   methods: {
+    handleImageChange(file, fileList) {
+      console.log("file", file);
+      this.image = file.raw;
+    },
     onSubmit() {
       this.$refs.form.validate(async valid => {
-        if (valid) {
+        if (valid && this.image) {
           this.loading = true;
           const formData = {
             title: this.controls.title,
-            text: this.controls.text
+            text: this.controls.text,
+            image: this.image
           };
           try {
             await this.$store.dispatch("post/create", formData);
             this.controls.title = "";
             this.controls.text = "";
+            this.image = null;
+            this.$refs.upload.clearFiles();
             this.$message.success("Пост создан");
           } catch (error) {
             this.$message.error("Пост не создан");
           } finally {
             this.loading = false;
           }
+        } else {
+          this.$message.warning("Добавьте изображение");
         }
       });
     }
