@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt-nodejs");
 const jwt = require("jsonwebtoken");
 const keys = require("../keys");
 const User = require("../models/user.model");
-const { use } = require("../routes/auth.routes");
 
 module.exports.login = async (req, res) => {
   const candidate = await User.findOne({
