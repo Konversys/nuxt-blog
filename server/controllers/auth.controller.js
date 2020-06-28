@@ -31,20 +31,26 @@ module.exports.login = async (req, res) => {
 };
 
 module.exports.createUser = async (req, res) => {
-  const candidate = await User.findOne({
-    login: req.body.login
-  });
-  if (candidate) {
-    res.status(409).json({ message: "Пользователь уже существует" });
-  } else {
-    const salt = bcrypt.genSaltSync(10);
-
-    const user = new User({
-      login: req.body.login,
-      password: bcrypt.hashSync(req.body.password, salt)
+  try {
+    const candidate = await User.findOne({
+      login: req.body.login
     });
+    if (candidate) {
+      res.status(409).json({ message: "Пользователь уже существует" });
+    } else {
+      const salt = bcrypt.genSaltSync(10);
+      console.log(req.body);
+      const { login, password, role } = req.body;
+      const user = new User({
+        login,
+        password: bcrypt.hashSync(password, salt),
+        role
+      });
 
-    await user.save();
-    res.status(201).json(user);
+      await user.save();
+      res.status(201).json(user);
+    }
+  } catch (error) {
+    res.status(500).json(error);
   }
 };

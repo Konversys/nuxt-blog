@@ -1,5 +1,5 @@
 export const state = () => ({
-  token: null
+  token: true
 });
 
 export const mutations = {
@@ -16,7 +16,7 @@ export const actions = {
     try {
       const { token } = this.$axios.$post("/api/auth/admin/login", formData);
       console.log("token", token);
-      dispatch("setToken", token);
+      //dispatch("setToken", token);
     } catch (error) {
       commit("setError", error, { root: true });
       throw error;
@@ -30,8 +30,10 @@ export const actions = {
   },
   async createUser({ commit }, formData) {
     try {
-      console.log("create user", formData);
-    } catch (error) {}
+      await this.$axios.$post("/api/auth/admin/createUser", formData);
+    } catch (error) {
+      commit("setError", error, { root: true });
+    }
   }
 };
 

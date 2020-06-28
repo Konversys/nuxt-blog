@@ -19,8 +19,8 @@
         </el-form-item>
         <el-form-item label="Роль" prop="role">
           <el-select v-model.trim="controls.role" placeholder="Выберите роль">
-            <el-option label="Пользователь" value="admin"></el-option>
-            <el-option label="Администратор" value="user"></el-option>
+            <el-option label="Пользователь" value="user"></el-option>
+            <el-option label="Администратор" value="admin"></el-option>
           </el-select>
         </el-form-item>
         <el-row type="flex" justify="center">
