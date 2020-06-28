@@ -1,12 +1,14 @@
 const passport = require("passport");
 const { Router } = require("express");
 const controller = require("../controllers/post.controller");
+const upload = require("../middleware/upload");
 const router = Router();
 
 // /api/post
 router.post(
   "/admin/",
   passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
   controller.create
 );
 
@@ -36,6 +38,6 @@ router.delete(
 
 router.get("/", controller.getAll);
 router.get("/:id", controller.getById);
-router.put('/:id', controller.addView)
+router.put("/:id", controller.addView);
 
 module.exports = router;
