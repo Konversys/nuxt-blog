@@ -7,7 +7,7 @@ module.exports.login = async (req, res) => {
   const candidate = await User.findOne({
     login: req.body.login
   });
-  if (candidate) {
+  if (candidate && candidate.role === "admin") {
     const isPasswordCorrect = bcrypt.compareSync(
       req.body.password,
       candidate.password
