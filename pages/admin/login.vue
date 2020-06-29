@@ -72,6 +72,8 @@ export default {
       case "logout":
         this.$message.info("Вы вышли из системы");
         break;
+      case "session":
+        this.$message.warning("Время сессии истекло");
       default:
         break;
     }

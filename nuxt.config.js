@@ -24,7 +24,7 @@ module.exports = {
 
   css: ["element-ui/lib/theme-chalk/index.css", "@/theme/index.scss"],
 
-  plugins: ["@/plugins/globals"],
+  plugins: ["@/plugins/globals", "@/plugins/axios"],
 
   buildModules: [],
 
