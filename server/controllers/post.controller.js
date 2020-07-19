@@ -17,7 +17,7 @@ module.exports.create = async (req, res) => {
 module.exports.getAll = async (req, res) => {
   try {
     const posts = await Post.find().sort({ data: -1 });
-    req.json(posts);
+    res.json(posts);
   } catch (error) {
     res.status(500).json(error);
   }

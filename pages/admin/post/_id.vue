@@ -2,7 +2,7 @@
   <div class="page-wrap">
     <el-breadcrumb separator-class="el-icon-arrow-right" class="mb">
       <el-breadcrumb-item to="/admin/list">Посты</el-breadcrumb-item>
-      <el-breadcrumb-item>Пост {{ $route.params.id}}</el-breadcrumb-item>
+      <el-breadcrumb-item>Пост {{ post.title }}</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-form ref="form" :model="controls" :rules="rules" @submit.native.prevent="onSubmit">
@@ -39,7 +39,7 @@ export default {
     };
   },
   validate({ params }) {
-    return !!Number(params.id);
+    return params.id !== "";
   },
   async asyncData({ store, params }) {
     const post = await store.dispatch("post/fetchAdminById", params.id);
@@ -64,14 +64,17 @@ export default {
       }
     };
   },
+  mounted() {
+    this.controls.text = this.post.text;
+  },
   methods: {
     onSubmit() {
       this.$refs.form.validate(async valid => {
         if (valid) {
           this.loading = true;
           const formData = {
-            text: this.controls.text,
-            id: this.post.id
+            id: this.post._id,
+            text: this.controls.text
           };
           try {
             await this.$store.dispatch("post/update", formData);

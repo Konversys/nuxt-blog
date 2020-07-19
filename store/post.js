@@ -1,34 +1,19 @@
-const posts = [
-  {
-    title: "post",
-    date: new Date(),
-    views: 22,
-    comments: [1, 2],
-    _id: 1
-  },
-  {
-    title: "post2",
-    date: new Date(),
-    views: 23,
-    comments: [1, 2],
-    _id: 2
-  }
-];
-
 export const actions = {
-  async fetchAdmin({}) {
-    return await new Promise(resolve => {
-      setTimeout(() => {
-        resolve(posts);
-      }, 1000);
-    });
+  async fetchAdmin({ commit }) {
+    try {
+      return await this.$axios.$get("/api/post/admin/");
+    } catch (error) {
+      commit("setError", error, { root: true });
+      throw error;
+    }
   },
-  async fetchAdminById({}, id) {
-    return await new Promise(resolve => {
-      setTimeout(() => {
-        resolve(posts.find(x => x._id == id));
-      }, 1000);
-    });
+  async fetchAdminById({ commit }, id) {
+    try {
+      return await this.$axios.$get(`/api/post/admin/${id}`);
+    } catch (error) {
+      commit("setError", error, { root: true });
+      throw error;
+    }
   },
   async create({ commit }, { title, text, image }) {
     try {
@@ -42,6 +27,20 @@ export const actions = {
       throw error;
     }
   },
-  async remove({}, id) {},
-  async update({}, { id, text }) {}
+  async remove({ commit }, id) {
+    try {
+      return await this.$axios.$delete(`api/post/admin/${id}`);
+    } catch (error) {
+      commit("setError", error, { root: true });
+      throw error;
+    }
+  },
+  async update({ commit }, { id, text }) {
+    try {
+      return await this.$axios.$put(`api/post/admin/${id}`, { text });
+    } catch (error) {
+      commit("setError", error, { root: true });
+      throw error;
+    }
+  }
 };
