@@ -3,7 +3,7 @@
     <el-form ref="form" :model="controls" :rules="rules" @submit.native.prevent="onSubmit">
       <h1 class="mb">Создать пост</h1>
       <el-form-item label="Наименование поста" prop="title">
-        <el-input v-model.trim="controls.title"></el-input>
+        <el-input v-model="controls.title"></el-input>
       </el-form-item>
       <el-form-item label="Текст в формате md или html" prop="login">
         <el-input v-model="controls.text" type="textarea" resize="none" :rows="10"></el-input>
@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     handleImageChange(file, fileList) {
-      console.log("file", file);
       this.image = file.raw;
     },
     onSubmit() {

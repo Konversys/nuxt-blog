@@ -1,12 +1,11 @@
-const Post = require("../models/user.model");
+const Post = require("../models/post.model");
 
 module.exports.create = async (req, res) => {
   const post = new Post({
     title: req.body.title,
     text: req.body.text,
-    imageUrl: `/${req.body.filename}`
+    imageUrl: `/${req.file.filename}`
   });
-
   try {
     await post.save();
     res.status(201).json(post);

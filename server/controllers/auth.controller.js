@@ -39,7 +39,6 @@ module.exports.createUser = async (req, res) => {
       res.status(409).json({ message: "Пользователь уже существует" });
     } else {
       const salt = bcrypt.genSaltSync(10);
-      console.log(req.body);
       const { login, password, role } = req.body;
       const user = new User({
         login,

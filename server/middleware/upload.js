@@ -1,24 +1,26 @@
 const path = require("path");
 const multer = require("multer");
 const moment = require("moment");
+const { log } = require("console");
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, path.resolve(__dirname, "../..", "static"));
   },
   filename(req, file, cb) {
-    cb(null, `${file.originalname}-${moment().format("DDMMYYYY-HHmmss_SSS")}`);
+    cb(null, `${moment().format("DDMMYYYY-HHmmss_SSS")}-${file.originalname}`);
   }
 });
 const fileFilter = (req, file, cb) => {
-  if (file.memetype === "image/jpeg" || file.memetype === "image/png") {
+  if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
     cb(null, true);
   } else {
     cb(null, false);
   }
 };
+
 module.exports = multer({
   storage,
   fileFilter,
-  limits: { fieldSize: 1024 * 1024 * 5 }
+  limits: { fileSize: 5 * 1024 * 1024 }
 });
