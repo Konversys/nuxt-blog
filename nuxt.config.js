@@ -26,9 +26,14 @@ module.exports = {
 
   plugins: ["@/plugins/globals", "@/plugins/axios"],
 
-  buildModules: [],
+  buildModules: ["@nuxtjs/moment"],
 
   modules: ["@nuxtjs/axios"],
+
+  moment: {
+    defaultLocale: "ru",
+    locales: ["ru"]
+  },
 
   axios: {},
 

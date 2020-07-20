@@ -1,23 +1,19 @@
 <template>
   <el-card shadow="hover" :body-style="{ padding: 0 }" class="post">
     <header slot="header" class="post-header">
-      <h3>Post title</h3>
+      <h3>{{ post.title }}</h3>
       <small>
         <i class="el-icon-time"></i>
-        {{ new Date().toLocaleString()}}
+        {{ $moment(post.date).format('LLL') }}
       </small>
     </header>
     <div class="post-body">
-      <img
-        class="post-img"
-        src="https://images.wallpaperscraft.ru/image/anime_devushka_kot_komnata_625_2560x1600.jpg"
-        alt="кот"
-      />
+      <img class="post-img" :src="post.imageUrl" />
     </div>
     <footer class="post-footer">
       <el-button round @click="openPost">Открыть</el-button>
       <span>
-        <i class="el-icon-message">12</i>
+        <i class="el-icon-message">{{ post.comments.length }}</i>
       </span>
     </footer>
   </el-card>
@@ -25,9 +21,15 @@
 
 <script>
 export default {
+  props: {
+    post: {
+      type: Object,
+      required: true
+    }
+  },
   methods: {
     openPost() {
-      const id = "131";
+      const id = this.post._id;
       this.$router.push(`/post/${id}`);
     }
   }

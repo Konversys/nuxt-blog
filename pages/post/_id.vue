@@ -2,7 +2,7 @@
   <article class="post">
     <header class="post-header">
       <div class="post-title">
-        <h1>Post title</h1>
+        <h1>{{ post.title }}</h1>
         <nuxt-link to="/">
           <i class="el-icon-back"></i>
         </nuxt-link>
@@ -10,31 +10,24 @@
       <div class="post-info">
         <small>
           <i class="el-icon-time"></i>
-          {{ new Date().toLocaleString()}}
+          {{ $moment(post.date).format('LLL') }}
         </small>
         <small>
           <i class="el-icon-view"></i>
-          42
+          {{ post.views }}
         </small>
       </div>
       <div class="post-image">
-        <img
-          class="post-img"
-          src="https://images.wallpaperscraft.ru/image/anime_devushka_kot_komnata_625_2560x1600.jpg"
-          alt="кот"
-        />
+        <img class="post-img" :src="post.imageUrl" />
       </div>
     </header>
     <main class="post-content">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <vue-markdown>{{post.text}}</vue-markdown>
     </main>
     <footer>
       <AppCommentForm @created="createCommentHandler" v-if="canAddComment" />
-      <div class="comments" v-if="true">
-        <AppComment v-for="comment in 4" :key="comment" :comment="comment" />
+      <div class="comments" v-if="post.comments.length">
+        <AppComment v-for="comment in post.comments" :key="comment._id" :comment="comment" />
       </div>
       <div class="text-center" v-else>Нет комментариев</div>
     </footer>
@@ -48,6 +41,13 @@ export default {
   components: { AppComment, AppCommentForm },
   validate({ params }) {
     return !!params.id;
+  },
+  async asyncData({ store, params }) {
+    const post = await store.dispatch("post/fetchById", params.id);
+    await store.dispatch("post/addView", post);
+    return {
+      post: { ...post, views: ++post.views }
+    };
   },
   data() {
     return {
