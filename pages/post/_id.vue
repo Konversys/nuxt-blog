@@ -25,7 +25,7 @@
       <vue-markdown>{{post.text}}</vue-markdown>
     </main>
     <footer>
-      <AppCommentForm @created="createCommentHandler" v-if="canAddComment" />
+      <AppCommentForm @created="createCommentHandler" v-if="canAddComment" :postId="post._id" />
       <div class="comments" v-if="post.comments.length">
         <AppComment v-for="comment in post.comments" :key="comment._id" :comment="comment" />
       </div>
@@ -55,7 +55,8 @@ export default {
     };
   },
   methods: {
-    createCommentHandler() {
+    createCommentHandler(comment) {
+      this.post.comments.unshift(comment);
       this.canAddComment = false;
     }
   }
