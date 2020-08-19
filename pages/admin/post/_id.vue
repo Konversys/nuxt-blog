@@ -12,7 +12,7 @@
       <div class="mb">
         <small class="mr">
           <i class="el-icon-time"></i>
-          <span>{{ new Date(post.date).toLocaleString() }}</span>
+          <span>{{ post.date | date }}</span>
         </small>
         <small>
           <i class="el-icon-message"></i>
@@ -35,7 +35,7 @@ export default {
   middleware: ["admin-auth"],
   head() {
     return {
-      title: `Пост | ${this.post.title}`
+      title: `Пост | ${this.post.title}`,
     };
   },
   validate({ params }) {
@@ -44,24 +44,24 @@ export default {
   async asyncData({ store, params }) {
     const post = await store.dispatch("post/fetchAdminById", params.id);
     return {
-      post
+      post,
     };
   },
   data() {
     return {
       loading: false,
       controls: {
-        text: ""
+        text: "",
       },
       rules: {
         text: [
           {
             required: true,
             message: "Текст не может быть пустым",
-            trigger: "blur"
-          }
-        ]
-      }
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   mounted() {
@@ -69,12 +69,12 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$refs.form.validate(async valid => {
+      this.$refs.form.validate(async (valid) => {
         if (valid) {
           this.loading = true;
           const formData = {
             id: this.post._id,
-            text: this.controls.text
+            text: this.controls.text,
           };
           try {
             await this.$store.dispatch("post/update", formData);
@@ -86,8 +86,8 @@ export default {
           }
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -4,7 +4,7 @@
       <span class="comment-header__name">{{ comment.name }}</span>
       <small>
         <i class="el-icon-time"></i>
-        {{ $moment(comment.date).format('LLL')}}
+        {{ comment.date | date }}
       </small>
     </div>
     <div class="comment-text">{{ comment.text }}</div>
@@ -16,9 +16,9 @@ export default {
   props: {
     comment: {
       type: Object,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 };
 </script>
 

@@ -10,7 +10,7 @@
       <div class="post-info">
         <small>
           <i class="el-icon-time"></i>
-          {{ $moment(post.date).format('LLL') }}
+          {{ post.date | date }}
         </small>
         <small>
           <i class="el-icon-view"></i>

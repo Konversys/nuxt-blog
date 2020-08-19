@@ -4,7 +4,7 @@
       <h3>{{ post.title }}</h3>
       <small>
         <i class="el-icon-time"></i>
-        {{ $moment(post.date).format('LLL') }}
+        {{ post.date | date('date') }}
       </small>
     </header>
     <div class="post-body">
