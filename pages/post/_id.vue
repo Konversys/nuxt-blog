@@ -38,6 +38,11 @@
 import AppComment from "@/components/main/Comment";
 import AppCommentForm from "@/components/main/CommentForm";
 export default {
+  head() {
+    return {
+      title: `${this.post.title} | ${process.env.appName}`,
+    };
+  },
   components: { AppComment, AppCommentForm },
   validate({ params }) {
     return !!params.id;
@@ -46,20 +51,20 @@ export default {
     const post = await store.dispatch("post/fetchById", params.id);
     await store.dispatch("post/addView", post);
     return {
-      post: { ...post, views: ++post.views }
+      post: { ...post, views: ++post.views },
     };
   },
   data() {
     return {
-      canAddComment: true
+      canAddComment: true,
     };
   },
   methods: {
     createCommentHandler(comment) {
       this.post.comments.unshift(comment);
       this.canAddComment = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

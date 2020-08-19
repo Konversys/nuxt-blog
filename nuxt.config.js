@@ -37,6 +37,10 @@ module.exports = {
 
   axios: {},
 
+  env: {
+    appName: "Пикабу"
+  },
+
   build: {
     transpile: [/^element-ui/],
     extend(config, ctx) {}

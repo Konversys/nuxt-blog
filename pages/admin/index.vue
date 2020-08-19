@@ -14,6 +14,7 @@
 import { Bar } from "vue-chartjs";
 import AppAnalyticChart from "@/components/admin/AnalyticChart";
 export default {
+  head: { title: `Аналитика | ${process.env.appName}` },
   layout: "admin",
   middleware: ["admin-auth"],
   components: { AppAnalyticChart },

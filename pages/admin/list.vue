@@ -40,12 +40,13 @@
 
 <script>
 export default {
+  head: { title: `Список постов | ${process.env.appName}` },
   layout: "admin",
   middleware: ["admin-auth"],
   async asyncData({ store }) {
     const posts = await store.dispatch("post/fetchAdmin");
     return {
-      posts
+      posts,
     };
   },
   methods: {
@@ -60,17 +61,17 @@ export default {
           {
             confirmButtonText: "Да",
             cancelButtinText: "Отменить",
-            type: "warning"
+            type: "warning",
           }
         );
         await this.$store.dispatch("post/remove", id);
 
-        this.posts = this.posts.filter(x => x._id !== id); // mock
+        this.posts = this.posts.filter((x) => x._id !== id); // mock
 
         this.$message.success("Пост удален");
       } catch (error) {}
-    }
-  }
+    },
+  },
 };
 </script>
 

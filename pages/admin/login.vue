@@ -24,41 +24,42 @@
 <script>
 export default {
   layout: "empty",
+  head: { title: `Авторизация | ${process.env.appName}` },
   data() {
     return {
       loading: false,
       controls: {
         login: "",
-        password: ""
+        password: "",
       },
       rules: {
         login: [
           {
             required: true,
             message: "Введите логин",
-            trigger: "blur"
+            trigger: "blur",
           },
           {
             min: 4,
             max: 16,
             message: "Логин должен быть длинной от 4 до 16 символов",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         password: [
           {
             required: true,
             message: "Введите пароль",
-            trigger: "blur"
+            trigger: "blur",
           },
           {
             min: 4,
             max: 16,
             message: "Пароль должен быть от 4 до 16 символов",
-            trigger: "blur"
-          }
-        ]
-      }
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   mounted() {
@@ -80,13 +81,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$refs.form.validate(async valid => {
+      this.$refs.form.validate(async (valid) => {
         if (valid) {
           this.loading = true;
           try {
             const formData = {
               login: this.controls.login,
-              password: this.controls.password
+              password: this.controls.password,
             };
 
             await this.$store.dispatch("auth/login", formData);
@@ -98,8 +99,8 @@ export default {
           }
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

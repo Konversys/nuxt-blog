@@ -41,16 +41,17 @@
 export default {
   layout: "admin",
   middleware: ["admin-auth"],
+  head: { title: `Пользователи | ${process.env.appName}` },
   methods: {
     onSubmit() {
-      this.$refs.form.validate(async valid => {
+      this.$refs.form.validate(async (valid) => {
         if (valid) {
           this.loading = true;
           try {
             const formData = {
               login: this.controls.login,
               password: this.controls.password,
-              role: this.controls.role
+              role: this.controls.role,
             };
             await this.$store.dispatch("auth/createUser", formData);
             this.$message.success("Пользователь успешно создан");
@@ -66,7 +67,7 @@ export default {
           }
         }
       });
-    }
+    },
   },
   data() {
     return {
@@ -74,52 +75,52 @@ export default {
       controls: {
         login: "",
         password: "",
-        role: ""
+        role: "",
       },
       rules: {
         login: [
           {
             required: true,
             message: "Введите логин",
-            trigger: "blur"
+            trigger: "blur",
           },
           {
             min: 4,
             max: 16,
             message: "Логин должен быть длинной от 4 до 16 символов",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         password: [
           {
             required: true,
             message: "Введите пароль",
-            trigger: "blur"
+            trigger: "blur",
           },
           {
             min: 4,
             max: 16,
             message: "Пароль должен быть от 4 до 16 символов",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         role: [
           {
             required: true,
             message: "Выберите роль",
-            trigger: "change"
-          }
-        ]
+            trigger: "change",
+          },
+        ],
       },
       users: [
         {
           login: "Mike",
           password: "asdf",
-          role: "admin"
-        }
-      ]
+          role: "admin",
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 

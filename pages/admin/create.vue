@@ -40,11 +40,7 @@
 export default {
   layout: "admin",
   middleware: ["admin-auth"],
-  head() {
-    return {
-      title: "Создание поста"
-    };
-  },
+  head: { title: `Создание поста | ${process.env.appName}` },
   data() {
     return {
       image: null,
@@ -52,24 +48,24 @@ export default {
       loading: false,
       controls: {
         text: "",
-        title: ""
+        title: "",
       },
       rules: {
         title: [
           {
             required: true,
             message: "Название поста не может быть пустым",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         text: [
           {
             required: true,
             message: "Текст не может быть пустым",
-            trigger: "blur"
-          }
-        ]
-      }
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
@@ -77,13 +73,13 @@ export default {
       this.image = file.raw;
     },
     onSubmit() {
-      this.$refs.form.validate(async valid => {
+      this.$refs.form.validate(async (valid) => {
         if (valid && this.image) {
           this.loading = true;
           const formData = {
             title: this.controls.title,
             text: this.controls.text,
-            image: this.image
+            image: this.image,
           };
           try {
             await this.$store.dispatch("post/create", formData);
@@ -101,8 +97,8 @@ export default {
           this.$message.warning("Добавьте изображение");
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
