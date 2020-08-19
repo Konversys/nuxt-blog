@@ -1,4 +1,5 @@
 const Post = require("../models/post.model");
+const { post } = require("../routes/post.routes");
 
 module.exports.create = async (req, res) => {
   const post = new Post({
@@ -69,6 +70,26 @@ module.exports.addView = async (req, res) => {
   try {
     await Post.findOneAndUpdate({ _id: req.params.id }, { $set });
     res.status(204).json();
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+module.exports.getAnalytics = async (req, res) => {
+  try {
+    const posts = await Post.find();
+    const labels = posts.map(post => post.title);
+    const json = {
+      comments: {
+        labels,
+        data: posts.map(post => post.comments.length)
+      },
+      views: {
+        labels,
+        data: posts.map(post => post.views)
+      }
+    };
+    res.json(json);
   } catch (error) {
     res.status(500).json(error);
   }

@@ -11,6 +11,10 @@ export default {
   layout: "admin",
   middleware: ["admin-auth"],
   extends: Bar,
+  async asyncData({ store }) {
+    const analytics = await store.dispatch("post/getAnalytics");
+    console.log(analytics);
+  },
   mounted() {
     const data = {
       labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
