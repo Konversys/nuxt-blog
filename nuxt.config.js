@@ -40,7 +40,7 @@ module.exports = {
   },
 
   env: {
-    appName: "Пикабу"
+    appName: "KDV"
   },
 
   build: {
