@@ -28,14 +28,16 @@ module.exports = {
 
   buildModules: ["@nuxtjs/moment"],
 
-  modules: ["@nuxtjs/axios"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/pwa"],
 
   moment: {
     defaultLocale: "ru",
     locales: ["ru"]
   },
 
-  axios: {},
+  axios: {
+    baseUrl: process.env.BASE_URL || "http://localhost:3000"
+  },
 
   env: {
     appName: "Пикабу"

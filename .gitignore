@@ -93,3 +93,5 @@ sw.*
 static/*.jpg
 static/*.jpeg
 static/*.png
+
+server/keys/keys.dev.js
