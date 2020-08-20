@@ -36,7 +36,7 @@ module.exports = {
   },
 
   axios: {
-    baseUrl: process.env.BASE_URL || "http://localhost:3000"
+    baseURL: process.env.BASE_URL || "http://localhost:3000"
   },
 
   env: {
