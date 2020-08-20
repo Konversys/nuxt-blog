@@ -41,6 +41,18 @@ export default {
   head() {
     return {
       title: `${this.post.title} | ${process.env.appName}`,
+      meta: [
+        {
+          hid: `post-${this.post._id}-d`,
+          name: "description",
+          content: this.post.title,
+        },
+        {
+          hid: `post-${this.post._id}-k`,
+          name: "keywords",
+          content: "post, пооооост",
+        },
+      ],
     };
   },
   components: { AppComment, AppCommentForm },
